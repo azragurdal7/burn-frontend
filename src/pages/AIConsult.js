@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const FLASK_AI_API_URL = process.env.REACT_APP_FLASK_AI_API_URL;
 
 const AIConsult = () => {
     const location = useLocation();

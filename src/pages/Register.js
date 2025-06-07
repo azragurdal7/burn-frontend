@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 //import "./Register.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const FLASK_AI_API_URL = process.env.REACT_APP_FLASK_AI_API_URL;
 
 const Register = () => {
