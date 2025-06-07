@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faBell, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
@@ -136,7 +137,7 @@ const Notifications = () => {
                 return;
             }
             try {
-                const response = await fetch("http://localhost:5005/api/notifications", {
+                const response = await fetch(`${API_BASE_URL}/api/notifications`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -158,7 +159,7 @@ const Notifications = () => {
     const markAsRead = async (notificationId) => {
         try {
             const response = await fetch(
-                `http://localhost:5005/api/notifications/${notificationId}/read`,
+                `${API_BASE_URL}/api/notifications/${notificationId}/read`,
                 {
                     method: "PUT",
                     headers: {

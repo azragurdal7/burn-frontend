@@ -3,6 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { loginDoctor } from "../api/axiosConfig";
 //import "./LoginDoctor.module.css";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const LoginDoctor = ({ onLogin }) => {
   const [formData, setFormData] = useState({ Email: "", Password: "" });

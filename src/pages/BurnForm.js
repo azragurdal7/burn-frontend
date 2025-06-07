@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 //import "./BurnForm.css"; // CSS dosyanızın var olduğundan emin olun
+const FLASK_AI_API_URL = process.env.REACT_APP_FLASK_AI_API_URL;
 
 const BurnForm = () => {
   const navigate = useNavigate();
@@ -106,7 +107,7 @@ const BurnForm = () => {
 
     try {
       // Backend endpoint'i: /api/Patient
-      const response = await axios.post("http://localhost:5005/api/Patient", submissionData, {
+      const response = await axios.post(`${API_BASE_URL}/api/Patient`, submissionData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

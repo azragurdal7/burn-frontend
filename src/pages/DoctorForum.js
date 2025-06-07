@@ -6,6 +6,7 @@ import { faCheck, faPencilAlt, faTrashAlt, faMicrophone, faStopCircle, faSpinner
 import moment from 'moment';
 import 'moment/locale/tr';
 //import "./DoctorForum.css"; // Make sure this CSS file exists and is correctly linked
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 moment.locale('tr');
 
@@ -57,7 +58,7 @@ const DoctorForum = () => {
                 return;
             }
             try {
-                const response = await fetch("http://localhost:5005/api/doctor/info", {
+                const response = await fetch(`${API_BASE_URL}/api/doctor/info`, {
                     headers: { "Authorization": `Bearer ${token}` },
                 });
                 if (!response.ok) {
@@ -90,7 +91,7 @@ const DoctorForum = () => {
             return;
         }
         try {
-            const response = await fetch("http://localhost:5005/api/forum/getAll", {
+            const response = await fetch(`${API_BASE_URL}/api/forum/getAll`, {
                  headers: { "Authorization": `Bearer ${token}` }
             });
             if (!response.ok) throw new Error(`Forum gönderileri alınamadı: ${response.statusText} (${response.status})`);
@@ -122,7 +123,7 @@ const DoctorForum = () => {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:5005/api/forum/getPost/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/forum/getPost/${id}`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (!response.ok) {
@@ -174,7 +175,7 @@ const DoctorForum = () => {
         if (!currentDoctor) { alert("Doktor bilgisi yüklenemedi, lütfen sayfayı yenileyin veya tekrar giriş yapın."); return; }
 
         try {
-            const response = await fetch(`http://localhost:5005/api/forum/addComment/${postId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/forum/addComment/${postId}`, {
                 method: "POST",
                 headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
                 body: JSON.stringify({ content: newCommentContent, doctorName: currentDoctor }),
@@ -295,7 +296,7 @@ const DoctorForum = () => {
         formData.append("doctorName", currentDoctor);
 
         try {
-            const response = await fetch(`http://localhost:5005/api/forum/addVoiceRecording/${postId}`,
+            const response = await fetch(`${API_BASE_URL}/api/forum/addVoiceRecording/${postId}`,
                 { method: "POST", headers: { "Authorization": `Bearer ${token}` }, body: formData });
             
             if (!response.ok) {
@@ -337,7 +338,7 @@ const DoctorForum = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:5005/api/forum/deleteVoiceRecording/${recordingId}`,
+                `${API_BASE_URL}/api/forum/deleteVoiceRecording/${recordingId}`,
                 { method: "DELETE", headers: { "Authorization": `Bearer ${token}` } }
             );
 
@@ -375,7 +376,7 @@ const DoctorForum = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:5005/api/forum/updateComment/${commentId}`,
+                `${API_BASE_URL}/api/forum/updateComment/${commentId}`,
                 {
                     method: "PUT",
                     headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" },
@@ -421,7 +422,7 @@ const DoctorForum = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:5005/api/forum/deleteComment/${commentId}`,
+                `${API_BASE_URL}/api/forum/deleteComment/${commentId}`,
                 { method: "DELETE", headers: { "Authorization": `Bearer ${token}` } }
             );
             if (response.status === 403) {
@@ -499,7 +500,7 @@ const DoctorForum = () => {
                                     {p.photoPath && (
                                         <div className="post-image-container" style={styles.postImageContainer}>
                                             <img
-                                                src={`http://localhost:5005/${p.photoPath.startsWith('/') ? p.photoPath.substring(1) : p.photoPath}`}
+                                                src={`${API_BASE_URL}/${p.photoPath.startsWith('/') ? p.photoPath.substring(1) : p.photoPath}`}
                                                 alt={`Hasta Fotoğrafı - Post ${p.forumPostID}`}
                                                 className="postImage"
                                                 style={styles.postImage}
@@ -580,7 +581,7 @@ const DoctorForum = () => {
                                                             {moment(recording.createdAt).format('DD MMM, HH:mm')}
                                                         </span>
                                                     )}
-                                                    <audio controls src={`http://localhost:5005/${recording.filePath.startsWith('/') ? recording.filePath.substring(1) : recording.filePath}`} className="audio-player" style={styles.audioPlayerForum} />
+                                                    <audio controls src={`${API_BASE_URL}/${recording.filePath.startsWith('/') ? recording.filePath.substring(1) : recording.filePath}`} className="audio-player" style={styles.audioPlayerForum} />
                                                     {currentDoctor === recording.doctorName && (
                                                         <button
                                                             onClick={() => deleteRecording(p.forumPostID, recording.voiceRecordingID)}

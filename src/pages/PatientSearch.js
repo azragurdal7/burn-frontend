@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; // Eğer useLocation kullanılmıyorsa sadece useNavigate kalsın
 //import "./PatientSearch.css";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const PatientSearch = () => {
   const [patients, setPatients] = useState([]);
@@ -28,7 +29,7 @@ const PatientSearch = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://localhost:5005/api/Patient");
+        const response = await fetch(`${API_BASE_URL}/api/Patient`);
         if (!response.ok) {
           const errorData = await response.text();
           throw new Error(`Hastalar alınırken bir hata oluştu: ${response.status} - ${errorData || response.statusText}`);
@@ -68,7 +69,7 @@ const PatientSearch = () => {
     const patientToDelete = patients.find(p => p.patientID === patientId);
     if (window.confirm(`"${patientToDelete?.name || 'Bu hasta'}" adlı hastayı silmek istediğinize emin misiniz?`)) {
       try {
-        const response = await fetch(`http://localhost:5005/api/Patient/${patientId}`, {
+        const response = await fetch(`${API_BASE_URL}/api/Patient/${patientId}`, {
           method: "DELETE",
         });
         if (!response.ok) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const AccountInfo = () => {
   
@@ -112,7 +112,7 @@ const AccountInfo = () => {
         return;
       }
       try {
-        const response = await fetch("http://localhost:5005/api/doctor/info", {
+        const response = await fetch(`${API_BASE_URL}/doctor/info`, {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -163,7 +163,7 @@ const AccountInfo = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5005/api/doctor/update/${doctorInfo.doctorID}`, {
+      const response = await fetch(`${API_BASE_URL}/doctor/update/${doctorInfo.doctorID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const AddVisit = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -28,7 +30,7 @@ const AddVisit = () => {
         fileFormData.append("file", file);
 
         try {
-            const response = await fetch("http://localhost:5005/api/visit/upload", {
+            const response = await fetch(`${API_BASE_URL}/api/visit/upload`, {
                 method: "POST",
                 body: fileFormData,
             });
@@ -63,7 +65,7 @@ const AddVisit = () => {
 
             console.log("Gönderilen Veri:", requestBody); // İstek verisini konsola yazdır
 
-            const response = await fetch(`http://localhost:5005/api/visit/patient/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/visit/patient/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
