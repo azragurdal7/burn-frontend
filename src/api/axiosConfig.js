@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// .env dosyasından backend URL’yi al
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const api = axios.create({
-  baseURL: "http://localhost:5005",
+  baseURL: API_BASE_URL, // artık localhost değil
 });
 
 api.interceptors.request.use(
@@ -14,7 +17,6 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
 
 export const loginAdmin = (url, data) => api.post(url, data);
 export const loginDoctor = (url, data) => api.post(url, data);
