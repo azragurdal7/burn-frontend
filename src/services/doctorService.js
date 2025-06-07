@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5005/api'; // Backend API'nin temel URL'si
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+ // Backend API'nin temel URL'si
 const FLASK_AI_URL = 'https://burn-flask-ai.onrender.com/'; // Flask AI API'nin Railway URL'si
 
 // Flask AI servisinden tahmin al
